@@ -9,6 +9,10 @@ import ErrorPage from "../pages/ErrorPage";
 import Forbidden from "../pages/Forbidden";
 import PrivateRoutes from "../routes/PrivateRoutes";
 import AddArticle from "../pages/AddArticle";
+import AdminRoute from "../routes/AdminRoutes";
+import AllUsers from "../pages/Dashboard/AllUsers";
+import AllArticles from "../pages/Dashboard/AllArticles";
+import AddPublishers from "../pages/Dashboard/AddPublishers";
 
 const router = createBrowserRouter([
     {
@@ -36,7 +40,16 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             {
-
+               path: 'users',
+               element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+            },
+            {
+               path: 'articles',
+               element: <AdminRoute><AllArticles></AllArticles></AdminRoute>
+            },
+            {
+               path: 'publishers',
+               element: <AdminRoute><AddPublishers></AddPublishers></AdminRoute>
             }
         ]
     },

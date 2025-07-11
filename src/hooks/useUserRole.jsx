@@ -4,7 +4,6 @@ import useAxiosSecure from './useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 
 const useUserRole = () => {
-
     const { user, loading: authLoading } = useAuth();
     const axiosSecure = useAxiosSecure();
 
@@ -16,10 +15,15 @@ const useUserRole = () => {
         queryKey: ['userRole', user?.email],
         enabled: !authLoading && !!user?.email,
         queryFn: async () => {
-            const res = await axiosSecure.get(`/users/${user.email}/role`)
-            return res.data.role;
-        }
-    })
+            try {
+                const res = await axiosSecure.get(`/users/${user.email}/role`);
+                return res.data.role;
+            } catch (error) {
+                console.error('Failed to fetch user role:', error);
+                return 'user'; // fallback role
+            }
+        },
+    });
 
     return { role, roleLoading: authLoading || roleLoading, refetch };
 };

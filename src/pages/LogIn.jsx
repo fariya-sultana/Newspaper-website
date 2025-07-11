@@ -25,8 +25,15 @@ const LogIn = () => {
         try {
             const result = await signIn(email, password);
             const user = result.user;
-            const res = await axios.post('/jwt', { email: user.email });
+
+            // Send email, name, photo to /jwt to upsert and get token
+            const res = await axios.post('/jwt', {
+                email: user.email,
+                name: user.displayName,
+                photo: user.photoURL,
+            });
             localStorage.setItem('access-token', res.data.token);
+
             toast.success('Login successful!');
             navigate(from, { replace: true });
         } catch (error) {
@@ -38,15 +45,24 @@ const LogIn = () => {
     const handleGoogle = async () => {
         try {
             const result = await signInWithGoogle();
-            const res = await axios.post('/jwt', { email: result.user.email });
+            const user = result.user;
+
+            const res = await axios.post('/jwt', {
+                email: user.email,
+                name: user.displayName,
+                photo: user.photoURL,
+            });
             localStorage.setItem('access-token', res.data.token);
+
             toast.success('Signed in with Google!');
             navigate(from, { replace: true });
         } catch (error) {
-            console.error(error)
+            console.error(error);
             toast.error('Google sign-in failed.');
         }
     };
+
+
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
