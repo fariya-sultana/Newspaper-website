@@ -7,6 +7,8 @@ import LogIn from "../pages/LogIn";
 import Register from "../pages/Register";
 import ErrorPage from "../pages/ErrorPage";
 import Forbidden from "../pages/Forbidden";
+import PrivateRoutes from "../routes/PrivateRoutes";
+import AddArticle from "../pages/AddArticle";
 
 const router = createBrowserRouter([
     {
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: 'forbidden',
                 Component: Forbidden
+            },
+            {
+                path: 'add-article',
+                element: <PrivateRoutes><AddArticle></AddArticle></PrivateRoutes>
             }
         ]
     },
