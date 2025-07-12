@@ -15,6 +15,7 @@ const AddArticle = () => {
         handleSubmit,
         control,
         reset,
+        setValue,
         formState: { errors }
     } = useForm();
     const axios = useAxios();
@@ -37,7 +38,12 @@ const AddArticle = () => {
         { value: 'tech', label: 'Tech' },
         { value: 'business', label: 'Business' },
         { value: 'sports', label: 'Sports' },
-        { value: 'entertainment', label: 'Entertainment' }
+        { value: 'entertainment', label: 'Entertainment' },
+        { value: 'aI', label: 'AI' },
+        { value: 'health', label: 'Health' },
+        { value: 'Global warming', label: 'Global warming' },
+        { value: 'environment', label: 'Environment' },
+        { value: 'climate', label: 'Climate' },
     ];
 
     const handleImageUpload = async (imageFile) => {
@@ -68,6 +74,7 @@ const AddArticle = () => {
             if (res.data.insertedId) {
                 Swal.fire('Success', 'Article submitted for review!', 'success');
                 reset();
+                setValue("tags", []);
             }
         } catch (error) {
             const msg =
@@ -121,10 +128,14 @@ const AddArticle = () => {
                     <label className="block font-medium mb-1">Tags</label>
                     <Controller
                         name="tags"
+                        defaultValue={[]}
                         control={control}
                         rules={{ required: true }}
                         render={({ field }) => (
-                            <Select {...field} isMulti options={tagOptions} />
+                            <Select {...field} isMulti options={tagOptions}
+                                className="react-select-container"
+                                classNamePrefix="react-select"
+                            />
                         )}
                     />
                     {errors.tags && <p className="text-sm text-red-500">Select tags</p>}
