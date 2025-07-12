@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useUserRole from '../../hooks/useUserRole';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -10,16 +10,20 @@ const AllUsers = () => {
     const { role, roleLoading } = useUserRole();
     const queryClient = useQueryClient();
 
-    const { data: users = [], isLoading } = useQuery({
-        queryKey: ['all-users'],
+    const [page, setPage] = useState(1);
+    const limit = 10;
+
+    const { data: userData = {}, isLoading } = useQuery({
+        queryKey: ['all-users', page],
         enabled: role === 'admin' && !roleLoading,
         queryFn: async () => {
-            const res = await axiosSecure.get('/admin/users');
+            const res = await axiosSecure.get(`/admin/users?page=${page}&limit=${limit}`);
             return res.data;
         },
     });
 
-    if (roleLoading || isLoading) return <Loading />;
+    const users = userData?.users || [];
+    const totalPages = Math.ceil((userData?.total || 0) / limit);
 
     const handleMakeAdmin = async (userId) => {
         try {
@@ -32,12 +36,15 @@ const AllUsers = () => {
         }
     };
 
+    if (roleLoading || isLoading) return <Loading />;
+
     return (
-        <div>
-            <h2 className="text-2xl font-bold mb-4">All Users</h2>
-            <div className="overflow-x-auto bg-white shadow rounded">
-                <table className="min-w-full border border-gray-200 text-left">
-                    <thead className="bg-gray-100">
+        <div className="p-6 dark:bg-gray-900 dark:text-white min-h-screen">
+            <h2 className="text-2xl font-bold mb-4 text-center">All Users</h2>
+
+            <div className="overflow-x-auto bg-white dark:bg-gray-800 shadow rounded">
+                <table className="min-w-full border border-gray-300 dark:border-gray-700 text-left">
+                    <thead className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
                         <tr>
                             <th className="px-4 py-2 border">#</th>
                             <th className="px-4 py-2 border">Profile</th>
@@ -48,8 +55,8 @@ const AllUsers = () => {
                     </thead>
                     <tbody>
                         {users.map((user, idx) => (
-                            <tr key={user._id} className="hover:bg-gray-50">
-                                <td className="px-4 py-2 border">{idx + 1}</td>
+                            <tr key={user._id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <td className="px-4 py-2 border">{(page - 1) * limit + idx + 1}</td>
                                 <td className="px-4 py-2 border">
                                     <img
                                         src={user.photo || '/default-profile.png'}
@@ -61,11 +68,11 @@ const AllUsers = () => {
                                 <td className="px-4 py-2 border">{user.email}</td>
                                 <td className="px-4 py-2 border capitalize">
                                     {user.role === 'admin' ? (
-                                        <span className="font-semibold text-green-600">Admin</span>
+                                        <span className="font-semibold text-green-600 dark:text-green-400">Admin</span>
                                     ) : (
                                         <button
                                             onClick={() => handleMakeAdmin(user._id)}
-                                            className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
+                                            className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
                                         >
                                             Make Admin
                                         </button>
@@ -75,6 +82,22 @@ const AllUsers = () => {
                         ))}
                     </tbody>
                 </table>
+            </div>
+
+            {/* Pagination */}
+            <div className="flex justify-center mt-6 space-x-2">
+                {[...Array(totalPages)].map((_, i) => (
+                    <button
+                        key={i}
+                        onClick={() => setPage(i + 1)}
+                        className={`px-1 py-0 rounded border ${page === i + 1
+                                ? 'bg-blue-600 text-white'
+                                : 'bg-gray-200 dark:bg-gray-700 dark:text-white'
+                            }`}
+                    >
+                        {i + 1}
+                    </button>
+                ))}
             </div>
         </div>
     );

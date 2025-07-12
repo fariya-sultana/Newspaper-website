@@ -8,8 +8,8 @@ const Navbar = () => {
 
     const getNavLinkClass = ({ isActive }) =>
         isActive
-            ? 'px-3 py-2 text-blue-600  font-semibold'
-            : 'px-3 py-2 text-gray-700 hover:text-blue-600';
+            ? 'px-3 py-2 text-blue-600 dark:text-blue-400 font-semibold'
+            : 'px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400';
 
     const navLinks = (
         <>
@@ -32,11 +32,11 @@ const Navbar = () => {
     );
 
     return (
-        <nav className="bg-white border-b shadow-md sticky top-0 z-50">
+        <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-md sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
                 {/* LEFT (Logo) */}
                 <div className="flex items-center gap-2">
-                    <Link to="/" className="text-xl lg:text-2xl font-bold text-blue-600">📰 NewsWave</Link>
+                    <Link to="/" className="text-xl lg:text-2xl font-bold text-blue-600 dark:text-blue-400">📰 NewsWave</Link>
                 </div>
 
                 {/* CENTER (Desktop Nav Links) */}
@@ -52,22 +52,22 @@ const Navbar = () => {
                                 <img
                                     src={user?.photoURL}
                                     alt="Profile"
-                                    className="w-9 h-9 rounded-full border"
+                                    className="w-9 h-9 rounded-full border dark:border-gray-600"
                                 />
                             </Link>
                             <button
                                 onClick={logOut}
-                                className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                                className="bg-blue-600 dark:bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700 dark:hover:bg-blue-600"
                             >
                                 Logout
                             </button>
                         </>
                     ) : (
                         <>
-                            <NavLink to="/login" className="border-blue-600 text-blue-600  px-3 py-1 rounded border">Login</NavLink>
+                            <NavLink to="/login" className="border border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 px-3 py-1 rounded">Login</NavLink>
                             <NavLink
                                 to="/register"
-                                className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                                className="bg-blue-600 dark:bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700 dark:hover:bg-blue-600"
                             >
                                 Register
                             </NavLink>
@@ -77,7 +77,7 @@ const Navbar = () => {
 
                 {/* RIGHT (Mobile Menu Button) */}
                 <div className="md:hidden">
-                    <button onClick={() => setMenuOpen(!menuOpen)} className="text-xl">
+                    <button onClick={() => setMenuOpen(!menuOpen)} className="text-xl text-gray-700 dark:text-gray-300">
                         ☰
                     </button>
                 </div>
@@ -85,13 +85,13 @@ const Navbar = () => {
 
             {/* Mobile/Tablet Slide Down Menu */}
             {menuOpen && (
-                <div className="md:hidden px-4 pb-4 space-y-2 bg-white shadow">
+                <div className="md:hidden px-4 pb-4 space-y-2 bg-white dark:bg-gray-900 shadow">
                     {user && (
                         <Link to="/profile" className="block text-center">
                             <img
                                 src={user?.photoURL}
                                 alt="Profile"
-                                className="w-10 h-10 rounded-full mx-auto border mb-2"
+                                className="w-10 h-10 rounded-full mx-auto border dark:border-gray-600 mb-2"
                             />
                         </Link>
                     )}
@@ -105,16 +105,16 @@ const Navbar = () => {
                                     setMenuOpen(false);
                                     logOut();
                                 }}
-                                className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                                className="bg-blue-600 dark:bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700 dark:hover:bg-blue-600"
                             >
                                 Logout
                             </button>
                         ) : (
                             <>
-                                <NavLink to="/login" className="block bg-blue-600 text-white py-1 rounded hover:bg-blue-700 mb-2">Login</NavLink>
+                                <NavLink to="/login" className="block bg-blue-600 dark:bg-blue-500 text-white py-1 rounded hover:bg-blue-700 dark:hover:bg-blue-600 mb-2">Login</NavLink>
                                 <NavLink
                                     to="/register"
-                                    className="block bg-blue-600 text-white py-1 rounded hover:bg-blue-700"
+                                    className="block bg-blue-600 dark:bg-blue-500 text-white py-1 rounded hover:bg-blue-700 dark:hover:bg-blue-600"
                                 >
                                     Register
                                 </NavLink>

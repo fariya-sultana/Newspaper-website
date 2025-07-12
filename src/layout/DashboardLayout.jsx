@@ -1,8 +1,6 @@
-// src/layout/DashboardLayout.jsx
-
 import React, { useState } from 'react';
 import { NavLink, Outlet } from 'react-router';
-import { FaUsers, FaNewspaper, FaBuilding, FaBars, FaTimes } from 'react-icons/fa';
+import { FaUsers, FaNewspaper, FaBuilding, FaBars, FaTimes, FaHome } from 'react-icons/fa';
 
 const DashboardLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -12,23 +10,28 @@ const DashboardLayout = () => {
 
     const linkClass = ({ isActive }) =>
         isActive
-            ? 'flex items-center gap-2 px-4 py-2 mb-2 text-blue-600 font-semibold bg-blue-50 rounded'
-            : 'flex items-center gap-2 px-4 py-2 mb-2 hover:bg-gray-100 rounded';
+            ? 'flex items-center gap-2 px-4 py-2 mb-2 text-blue-600 font-semibold bg-blue-100 dark:bg-gray-700 dark:text-white rounded'
+            : 'flex items-center gap-2 px-4 py-2 mb-2 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 rounded';
 
     return (
-        <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
+        <div className="flex flex-col md:flex-row min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
             {/* Top Bar */}
-            <div className="flex items-center justify-between p-4 bg-white shadow-md md:hidden">
-                <button onClick={toggleSidebar} className="text-xl">
+            <div className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 shadow-md md:hidden">
+                <button onClick={toggleSidebar} className="text-xl text-gray-800 dark:text-gray-200">
                     <FaBars />
                 </button>
                 <h1 className="text-xl font-bold">📰 NewsPress</h1>
             </div>
 
             {/* Sidebar - Desktop */}
-            <aside className="w-64 bg-white shadow-md hidden md:block">
-                <div className="p-6 text-xl font-bold border-b">Admin Dashboard</div>
+            <aside className="w-64 bg-white dark:bg-gray-800 shadow-md hidden md:block">
+                <div className="p-6 text-xl font-bold border-b border-gray-200 dark:border-gray-700">
+                    Admin Dashboard
+                </div>
                 <nav className="p-4">
+                    <NavLink to="/" className={linkClass}>
+                        <FaHome /> Back Home
+                    </NavLink>
                     <NavLink to="users" className={linkClass}>
                         <FaUsers /> All Users
                     </NavLink>
@@ -51,15 +54,18 @@ const DashboardLayout = () => {
                     ></div>
 
                     {/* Sidebar panel */}
-                    <aside className="relative w-64 bg-white shadow-md z-50 p-4">
+                    <aside className="relative w-64 bg-white dark:bg-gray-800 shadow-md z-50 p-4">
                         <button
                             onClick={closeSidebar}
-                            className="absolute top-4 right-4 text-xl"
+                            className="absolute top-4 right-4 text-xl text-gray-800 dark:text-gray-200"
                         >
                             <FaTimes />
                         </button>
                         <div className="text-xl font-bold mb-4">Admin Dashboard</div>
                         <nav>
+                            <NavLink to="/" className={linkClass} onClick={closeSidebar}>
+                                <FaHome /> Back Home
+                            </NavLink>
                             <NavLink to="users" className={linkClass} onClick={closeSidebar}>
                                 <FaUsers /> All Users
                             </NavLink>
@@ -75,7 +81,7 @@ const DashboardLayout = () => {
             )}
 
             {/* Main Content */}
-            <main className="flex-1 p-6">
+            <main className="flex-1">
                 <Outlet />
             </main>
         </div>

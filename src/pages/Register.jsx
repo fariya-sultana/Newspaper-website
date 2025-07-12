@@ -22,7 +22,6 @@ const Register = () => {
 
     const onSubmit = async (data) => {
         const { name, email, password } = data;
-
         const passwordRegex =
             /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{6,}$/;
 
@@ -39,7 +38,6 @@ const Register = () => {
 
             const user = result.user;
 
-            // Call /jwt to upsert user and get token
             const res = await axios.post('/jwt', {
                 email: user.email,
                 name: user.displayName,
@@ -95,20 +93,20 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-            <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md">
-                <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4">
+            <div className="w-full max-w-md bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md border dark:border-gray-700">
+                <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100">
                     Create an Account
                 </h2>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div>
-                        <label className="block text-gray-700 mb-1">Full Name</label>
+                        <label className="block text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
                         <input
                             type="text"
                             placeholder="Your name"
                             {...register('name', { required: true })}
-                            className="w-full border border-gray-300 px-2 py-1 rounded"
+                            className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:text-white px-2 py-1 rounded"
                         />
                         {errors.name && (
                             <p className="text-red-500 text-sm">Name is required</p>
@@ -116,12 +114,12 @@ const Register = () => {
                     </div>
 
                     <div>
-                        <label className="block text-gray-700 mb-1">Email</label>
+                        <label className="block text-gray-700 dark:text-gray-300 mb-1">Email</label>
                         <input
                             type="email"
                             placeholder="you@example.com"
                             {...register('email', { required: true })}
-                            className="w-full border border-gray-300 px-2 py-1 rounded"
+                            className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:text-white px-2 py-1 rounded"
                         />
                         {errors.email && (
                             <p className="text-red-500 text-sm">Email is required</p>
@@ -129,35 +127,33 @@ const Register = () => {
                     </div>
 
                     <div>
-                        <label className="block text-gray-700 mb-1">Photo</label>
+                        <label className="block text-gray-700 dark:text-gray-300 mb-1">Photo</label>
                         <input
                             type="file"
-                            className="w-full border border-gray-300 px-2 py-1 rounded"
+                            className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:text-white px-2 py-1 rounded"
                             onChange={handleImageUpload}
                             accept="image/*"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-gray-700 mb-1">Password</label>
+                        <label className="block text-gray-700 dark:text-gray-300 mb-1">Password</label>
                         <input
                             type="password"
                             placeholder="Enter your password"
                             {...register('password', { required: true })}
-                            className="w-full border border-gray-300 px-2 py-1 rounded"
+                            className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:text-white px-2 py-1 rounded"
                         />
                         {errors.password && (
                             <p className="text-red-500 text-sm">Password is required</p>
                         )}
                     </div>
 
-                    <p className="mt-1">
-                        <small>
-                            Already have an account?{' '}
-                            <Link className="border-b" to={'/login'}>
-                                Login
-                            </Link>
-                        </small>
+                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                        Already have an account?{' '}
+                        <Link className="border-b text-blue-600 dark:text-blue-400" to={'/login'}>
+                            Login
+                        </Link>
                     </p>
 
                     <button
@@ -168,11 +164,11 @@ const Register = () => {
                     </button>
                 </form>
 
-                <div className="my-2 text-center">or</div>
+                <div className="my-4 text-center text-gray-500 dark:text-gray-400">or</div>
 
                 <button
                     onClick={handleGoogle}
-                    className="w-full border border-gray-300 hover:bg-gray-100 text-gray-700 font-medium py-2 rounded flex items-center justify-center gap-2 transition duration-200"
+                    className="w-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-100 font-medium py-2 rounded flex items-center justify-center gap-2 transition duration-200"
                 >
                     <FcGoogle size={22} />
                     Continue with Google

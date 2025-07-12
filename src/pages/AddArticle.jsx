@@ -1,4 +1,3 @@
-// src/pages/AddArticle.jsx
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Select from 'react-select';
@@ -21,7 +20,6 @@ const AddArticle = () => {
     const axios = useAxios();
     const axiosSecure = useAxiosSecure();
 
-    // Load publishers
     const { data: publishers = [], isLoading, isError } = useQuery({
         queryKey: ['publishers'],
         queryFn: async () => {
@@ -30,8 +28,8 @@ const AddArticle = () => {
         }
     });
 
-    if (isLoading) return <Loading></Loading>
-    if (isError) return <p>Error loading publishers.</p>;
+    if (isLoading) return <Loading />;
+    if (isError) return <p className="text-red-500 text-center">Error loading publishers.</p>;
 
     const tagOptions = [
         { value: 'politics', label: 'Politics' },
@@ -69,7 +67,7 @@ const AddArticle = () => {
                 description: data.description
             };
 
-            const res = await axiosSecure.post('/addArticles', article)
+            const res = await axiosSecure.post('/addArticles', article);
 
             if (res.data.insertedId) {
                 Swal.fire('Success', 'Article submitted for review!', 'success');
@@ -77,44 +75,48 @@ const AddArticle = () => {
                 setValue("tags", []);
             }
         } catch (error) {
-            const msg =
-                error.response?.data?.message || 'Something went wrong';
+            const msg = error.response?.data?.message || 'Something went wrong';
             Swal.fire('Error', msg, 'error');
         }
     };
 
     return (
         <div className="max-w-3xl mx-auto px-4 py-8">
-            <h2 className="text-3xl font-semibold text-center mb-6">📝 Add New Article</h2>
+            <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800 dark:text-gray-100">
+                📝 Add New Article
+            </h2>
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="space-y-6 bg-white shadow-xl rounded-2xl p-6 border"
+                className="space-y-6 bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 border dark:border-gray-700"
             >
+                {/* Title */}
                 <div>
-                    <label className="block font-medium mb-1">Title</label>
+                    <label className="block font-medium mb-1 text-gray-700 dark:text-gray-200">Title</label>
                     <input
                         {...register('title', { required: true })}
-                        className="w-full border px-3 py-2 rounded"
+                        className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:text-white px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Article title"
                     />
                     {errors.title && <p className="text-sm text-red-500">Title is required</p>}
                 </div>
 
+                {/* Image */}
                 <div>
-                    <label className="block font-medium mb-1">Image</label>
+                    <label className="block font-medium mb-1 text-gray-700 dark:text-gray-200">Image</label>
                     <input
                         type="file"
                         {...register('image', { required: true })}
-                        className="w-full border px-3 py-2 rounded"
+                        className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:text-white px-3 py-2 rounded"
                     />
                     {errors.image && <p className="text-sm text-red-500">Image is required</p>}
                 </div>
 
+                {/* Publisher */}
                 <div>
-                    <label className="block font-medium mb-1">Publisher</label>
+                    <label className="block font-medium mb-1 text-gray-700 dark:text-gray-200">Publisher</label>
                     <select
                         {...register('publisher', { required: true })}
-                        className="w-full border px-3 py-2 rounded"
+                        className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:text-white px-3 py-2 rounded"
                     >
                         <option value="">Select publisher</option>
                         {publishers.map(pub => (
@@ -124,35 +126,57 @@ const AddArticle = () => {
                     {errors.publisher && <p className="text-sm text-red-500">Required</p>}
                 </div>
 
+                {/* Tags */}
                 <div>
-                    <label className="block font-medium mb-1">Tags</label>
+                    <label className="block font-medium mb-1 text-gray-700 dark:text-gray-200">Tags</label>
                     <Controller
                         name="tags"
                         defaultValue={[]}
                         control={control}
                         rules={{ required: true }}
                         render={({ field }) => (
-                            <Select {...field} isMulti options={tagOptions}
+                            <Select
+                                {...field}
+                                isMulti
+                                options={tagOptions}
                                 className="react-select-container"
                                 classNamePrefix="react-select"
+                                styles={{
+                                    control: (base) => ({
+                                        ...base,
+                                        backgroundColor: 'var(--tw-bg-opacity)',
+                                        color: 'black',
+                                    }),
+                                }}
+                                theme={(theme) => ({
+                                    ...theme,
+                                    colors: {
+                                        ...theme.colors,
+                                        neutral0: 'hsl(222, 47%, 11%)', // bg for dark mode
+                                        neutral80: 'white',
+                                        primary25: '#1d4ed8', // selection
+                                        primary: '#2563eb',
+                                    },
+                                })}
                             />
                         )}
                     />
                     {errors.tags && <p className="text-sm text-red-500">Select tags</p>}
                 </div>
 
+                {/* Description */}
                 <div>
-                    <label className="block font-medium mb-1">Description</label>
+                    <label className="block font-medium mb-1 text-gray-700 dark:text-gray-200">Description</label>
                     <textarea
                         {...register('description', { required: true })}
-                        className="w-full border px-3 py-2 rounded h-28"
+                        className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:text-white px-3 py-2 rounded h-28"
                     />
                     {errors.description && <p className="text-sm text-red-500">Description is required</p>}
                 </div>
 
                 <button
                     type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded transition"
                 >
                     Submit Article
                 </button>
