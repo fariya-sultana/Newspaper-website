@@ -94,7 +94,7 @@ const Register = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4">
-            <div className="w-full max-w-md bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md border dark:border-gray-700">
+            <div className="w-full max-w-md bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md border dark:border-gray-700 mt-6">
                 <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100">
                     Create an Account
                 </h2>
@@ -164,7 +164,7 @@ const Register = () => {
                     </button>
                 </form>
 
-                <div className="my-4 text-center text-gray-500 dark:text-gray-400">or</div>
+                <div className="my-1 text-center text-gray-500 dark:text-gray-400">or</div>
 
                 <button
                     onClick={handleGoogle}

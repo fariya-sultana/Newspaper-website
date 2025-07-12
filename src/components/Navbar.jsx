@@ -1,10 +1,14 @@
-import { NavLink, Link } from 'react-router';
+import { NavLink, Link, useNavigate } from 'react-router';
 import { useState } from 'react';
 import useAuth from '../hooks/useAuth';
+import useUserRole from '../hooks/useUserRole';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
-    const { user, logOut, isAdmin, isPremium } = useAuth();
+    const { user, logOut, isPremium } = useAuth();
     const [menuOpen, setMenuOpen] = useState(false);
+    const navigate = useNavigate();
+    const { role } = useUserRole();
 
     const getNavLinkClass = ({ isActive }) =>
         isActive
@@ -23,7 +27,7 @@ const Navbar = () => {
                     {isPremium && (
                         <NavLink to="/premium-articles" className={getNavLinkClass}>Premium Articles</NavLink>
                     )}
-                    {isAdmin && (
+                    {role === 'admin' && (
                         <NavLink to="/dashboard" className={getNavLinkClass}>Dashboard</NavLink>
                     )}
                 </>
@@ -31,12 +35,23 @@ const Navbar = () => {
         </>
     );
 
+    const handleLogout = async () => {
+        try {
+            await logOut();
+            toast.success("Logged out successfully");
+            navigate("/login");
+        } catch (error) {
+            console.error(error)
+            toast.error("Logout failed");
+        }
+    };
+
     return (
         <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-md sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
                 {/* LEFT (Logo) */}
                 <div className="flex items-center gap-2">
-                    <Link to="/" className="text-xl lg:text-2xl font-bold text-blue-600 dark:text-blue-400">📰 NewsWave</Link>
+                    <Link to="/" className="text-xl lg:text-2xl font-bold text-blue-600 dark:text-blue-400">📰 NewsPress</Link>
                 </div>
 
                 {/* CENTER (Desktop Nav Links) */}
@@ -56,7 +71,7 @@ const Navbar = () => {
                                 />
                             </Link>
                             <button
-                                onClick={logOut}
+                                onClick={handleLogout}
                                 className="bg-blue-600 dark:bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700 dark:hover:bg-blue-600"
                             >
                                 Logout
@@ -103,7 +118,7 @@ const Navbar = () => {
                             <button
                                 onClick={() => {
                                     setMenuOpen(false);
-                                    logOut();
+                                    handleLogout();
                                 }}
                                 className="bg-blue-600 dark:bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700 dark:hover:bg-blue-600"
                             >

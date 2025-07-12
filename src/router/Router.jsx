@@ -13,6 +13,8 @@ import AdminRoute from "../routes/AdminRoutes";
 import AllUsers from "../pages/Dashboard/AllUsers";
 import AllArticles from "../pages/Dashboard/AllArticles";
 import AddPublishers from "../pages/Dashboard/AddPublishers";
+import PremiumRoute from "../routes/PremiumRoute";
+import PremiumArticles from "../pages/PremiumArticles";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +33,10 @@ const router = createBrowserRouter([
             {
                 path: 'add-article',
                 element: <PrivateRoutes><AddArticle></AddArticle></PrivateRoutes>
+            },
+            {
+                path: 'premium-articles',
+                element: <PremiumRoute><PremiumArticles></PremiumArticles></PremiumRoute>
             }
         ]
     },
