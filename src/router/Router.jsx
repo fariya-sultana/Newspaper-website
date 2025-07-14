@@ -17,6 +17,8 @@ import PremiumRoute from "../routes/PremiumRoute";
 import PremiumArticles from "../pages/PremiumArticles";
 import AllArticle from "../pages/AllArticle";
 import ArticleDetails from "../pages/ArticleDetails";
+import SubscriptionPage from "../pages/SubscriptionPage";
+import PaymentPage from "../pages/PaymentPage";
 
 const router = createBrowserRouter([
     {
@@ -41,8 +43,16 @@ const router = createBrowserRouter([
                 Component: AllArticle
             },
             {
-              path: '/articles/:id',
-              element: <PrivateRoutes><ArticleDetails></ArticleDetails></PrivateRoutes>  
+                path: '/articles/:id',
+                element: <PrivateRoutes><ArticleDetails></ArticleDetails></PrivateRoutes>
+            },
+            {
+                path: '/subscription',
+                element: <PrivateRoutes><SubscriptionPage /></PrivateRoutes>
+            },
+            {
+                path: 'payment',
+                element: <PrivateRoutes><PaymentPage></PaymentPage></PrivateRoutes>
             },
             {
                 path: 'premium-articles',

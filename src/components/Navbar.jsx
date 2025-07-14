@@ -24,7 +24,7 @@ const Navbar = () => {
                     <NavLink to="/add-article" className={getNavLinkClass}>Add Article</NavLink>
                     <NavLink to="/subscription" className={getNavLinkClass}>Subscription</NavLink>
                     <NavLink to="/my-articles" className={getNavLinkClass}>My Articles</NavLink>
-                    {isPremium && (
+                    {(isPremium) && (
                         <NavLink to="/premium-articles" className={getNavLinkClass}>Premium Articles</NavLink>
                     )}
                     {role === 'admin' && (

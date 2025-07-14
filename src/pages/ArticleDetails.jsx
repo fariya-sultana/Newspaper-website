@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../hooks/useAxiosSecure';
@@ -10,6 +10,7 @@ const ArticleDetails = () => {
     const { id } = useParams();
     const axiosSecure = useAxiosSecure();
     const axios = useAxios();
+    const hasPatched = useRef(false); // ✅ correctly scoped here
 
     const { data: article = {}, isLoading, isError } = useQuery({
         queryKey: ['article-details', id],
@@ -19,13 +20,15 @@ const ArticleDetails = () => {
         },
     });
 
+   
     useEffect(() => {
-        if (id) {
-            axios
-                .patch(`/articles/${id}/view`)
-                .catch(() => toast.error('Failed to update view count'));
-        }
-    }, [id, axios]);
+        if (!id || hasPatched.current) return;
+
+        hasPatched.current = true; // 
+        axios
+            .patch(`/articles/${id}/view`)
+            .catch(() => toast.error('Failed to update view count'));
+    }, [id]); // 
 
     if (isLoading) return <Loading />;
     if (isError) return <div className="text-red-500 text-center">Error loading article</div>;
