@@ -23,10 +23,12 @@ const useAxiosSecure = () => {
 
     axiosSecure.interceptors.response.use(res => res, error => {
         const status = error?.response?.status;
-        if (status === 401 || status === 403) {
+        if (status === 403) {
+            navigate('/forbidden');
+        } else if (status === 401) {
             logOut().then(() => {
-                navigate('/login');
-            });
+                navigate('/login')
+            }).catch(() => { })
         }
         return Promise.reject(error);
     });

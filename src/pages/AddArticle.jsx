@@ -34,7 +34,7 @@ const AddArticle = () => {
         { value: 'business', label: 'Business' },
         { value: 'sports', label: 'Sports' },
         { value: 'entertainment', label: 'Entertainment' },
-        { value: 'aI', label: 'AI' },
+        { value: 'ai', label: 'AI' },
         { value: 'health', label: 'Health' },
         { value: 'Global warming', label: 'Global warming' },
         { value: 'environment', label: 'Environment' },
@@ -81,8 +81,8 @@ const AddArticle = () => {
     return (
         <section className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 px-4 py-12 flex items-center justify-center">
             <div className="w-full max-w-3xl bg-white/70 dark:bg-white/5 backdrop-blur-md border border-gray-200 dark:border-white/10 shadow-xl rounded-3xl p-10 space-y-8 transition-all">
-                <h2 className="text-4xl font-extrabold text-center drop-shadow-lg text-indigo-700 dark:text-purple-500">
-                    📝 Add New Article
+                <h2 className="text-4xl font-bold text-center drop-shadow-lg">
+                    Add New Article
                 </h2>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

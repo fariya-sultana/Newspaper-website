@@ -20,7 +20,6 @@ const AuthProvider = ({ children }) => {
     const [isPremium, setIsPremium] = useState(false);
     const axios = useAxios();
 
-    // ✅ Function to refresh premium status (reusable)
     const refreshPremiumStatus = async (email = null) => {
         try {
             const targetEmail = email || user?.email;
@@ -70,9 +69,9 @@ const AuthProvider = ({ children }) => {
                     const tokenRes = await axios.post('/jwt', { email, name, photo });
                     localStorage.setItem('access-token', tokenRes.data.token);
 
-                    await refreshPremiumStatus(email); // ✅ always refresh on load
+                    await refreshPremiumStatus(email);
                 } catch (err) {
-                    console.error('Error while getting token or premium status:', err);
+                    console.error('Error getting token or premium status:', err);
                 }
             } else {
                 localStorage.removeItem('access-token');
@@ -92,7 +91,7 @@ const AuthProvider = ({ children }) => {
         signIn,
         signInWithGoogle,
         logOut,
-        refreshPremiumStatus // ✅ expose this for use in PaymentPage
+        refreshPremiumStatus
     };
 
     return (

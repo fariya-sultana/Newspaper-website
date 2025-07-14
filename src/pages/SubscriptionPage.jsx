@@ -12,7 +12,7 @@ const SubscriptionPage = () => {
         1: 1.99,
         5: 7.99,
         10: 12.99,
-        30: 19.99
+        30: 19.99,
     };
 
     const handleSubscribe = async () => {

@@ -141,12 +141,13 @@ const AllArticle = () => {
                     return (
                         <div
                             key={article._id}
-                            className={`rounded-2xl overflow-hidden shadow-md transition-all duration-300 flex flex-col
-                            ${article.isPremium
-                                    ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white'
-                                    : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-gray-200 dark:border-gray-700'
-                                }`}
+                            className={`rounded-2xl overflow-hidden shadow-md transform transition-all duration-300 flex flex-col group
+    ${article.isPremium
+                                    ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white hover:shadow-[0_8px_30px_rgba(139,92,246,0.5)] hover:ring-1 hover:ring-purple-400 hover:ring-offset-1 hover:ring-offset-purple-200'
+                                    : 'hover:ring-1 hover:ring-offset-1 bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 hover:shadow-[0_6px_20px_rgba(59,130,246,0.4)] hover:ring-blue-400 hover:border-blue-500'
+                                } hover:scale-[1.01] cursor-pointer`}
                         >
+
                             <img
                                 src={article.image}
                                 alt={article.title}
