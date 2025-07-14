@@ -18,7 +18,7 @@ const Navbar = () => {
     const navLinks = (
         <>
             <NavLink to="/" className={getNavLinkClass}>Home</NavLink>
-            <NavLink to="/articles" className={getNavLinkClass}>All Articles</NavLink>
+            <NavLink to="/all-article" className={getNavLinkClass}>All Articles</NavLink>
             {user && (
                 <>
                     <NavLink to="/add-article" className={getNavLinkClass}>Add Article</NavLink>

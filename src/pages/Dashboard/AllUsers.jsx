@@ -40,7 +40,7 @@ const AllUsers = () => {
 
     return (
         <div className="p-6 dark:bg-gray-900 dark:text-white min-h-screen">
-            <h2 className="text-2xl font-bold mb-4 text-center">All Users</h2>
+            <h2 className="text-2xl font-bold mb-6 text-center">All Users</h2>
 
             <div className="overflow-x-auto bg-white dark:bg-gray-800 shadow rounded">
                 <table className="min-w-full border border-gray-300 dark:border-gray-700 text-left">
@@ -90,9 +90,9 @@ const AllUsers = () => {
                     <button
                         key={i}
                         onClick={() => setPage(i + 1)}
-                        className={`px-1 py-0 rounded border ${page === i + 1
-                                ? 'bg-blue-600 text-white'
-                                : 'bg-gray-200 dark:bg-gray-700 dark:text-white'
+                        className={`px-1 py-0 rounded-md text-sm font-medium border ${page === i + 1
+                            ? 'bg-blue-600 text-white border-blue-600'
+                            : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700'
                             }`}
                     >
                         {i + 1}

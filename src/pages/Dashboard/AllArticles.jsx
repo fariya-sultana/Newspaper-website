@@ -170,12 +170,12 @@ const AllArticles = () => {
             </div>
 
             {/* Pagination */}
-            <div className="flex justify-center mt-8 space-x-2">
+            <div className="flex justify-center mt-6 space-x-2">
                 {[...Array(totalPages)].map((_, i) => (
                     <button
                         key={i}
                         onClick={() => setPage(i + 1)}
-                        className={`px-3 py-1 rounded-md text-sm font-medium border ${page === i + 1
+                        className={`px-1 py-0 rounded-md text-sm font-medium border ${page === i + 1
                                 ? 'bg-blue-600 text-white border-blue-600'
                                 : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700'
                             }`}

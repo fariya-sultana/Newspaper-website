@@ -15,6 +15,8 @@ import AllArticles from "../pages/Dashboard/AllArticles";
 import AddPublishers from "../pages/Dashboard/AddPublishers";
 import PremiumRoute from "../routes/PremiumRoute";
 import PremiumArticles from "../pages/PremiumArticles";
+import AllArticle from "../pages/AllArticle";
+import ArticleDetails from "../pages/ArticleDetails";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
                 element: <PrivateRoutes><AddArticle></AddArticle></PrivateRoutes>
             },
             {
+                path: 'all-article',
+                Component: AllArticle
+            },
+            {
+              path: '/articles/:id',
+              element: <PrivateRoutes><ArticleDetails></ArticleDetails></PrivateRoutes>  
+            },
+            {
                 path: 'premium-articles',
                 element: <PremiumRoute><PremiumArticles></PremiumArticles></PremiumRoute>
             }
@@ -46,16 +56,16 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             {
-               path: 'users',
-               element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+                path: 'users',
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
             },
             {
-               path: 'articles',
-               element: <AdminRoute><AllArticles></AllArticles></AdminRoute>
+                path: 'articles',
+                element: <AdminRoute><AllArticles></AllArticles></AdminRoute>
             },
             {
-               path: 'publishers',
-               element: <AdminRoute><AddPublishers></AddPublishers></AdminRoute>
+                path: 'publishers',
+                element: <AdminRoute><AddPublishers></AddPublishers></AdminRoute>
             }
         ]
     },
@@ -65,8 +75,8 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             {
-               path: 'login',
-                Component: LogIn 
+                path: 'login',
+                Component: LogIn
             },
             {
                 path: 'register',
