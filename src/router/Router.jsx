@@ -21,6 +21,7 @@ import SubscriptionPage from "../pages/SubscriptionPage";
 import PaymentPage from "../pages/PaymentPage";
 import MyArticlesPage from "../pages/MyArticlesPage";
 import UpdatedPage from "../pages/UpdatedPage";
+import MyProfilePage from "../pages/MyProfilePage";
 
 const router = createBrowserRouter([
     {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
             {
                 path: '/update-article/:id',
                 element: <PrivateRoutes><UpdatedPage></UpdatedPage></PrivateRoutes>
+            },
+            {
+                path: '/profile',
+                element: <PrivateRoutes><MyProfilePage></MyProfilePage></PrivateRoutes>
             }
         ]
     },
