@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { Dialog } from '@headlessui/react';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { CheckCircle, XCircle } from 'lucide-react';
 
 const AllArticles = () => {
     const axiosSecure = useAxiosSecure();
@@ -64,14 +65,21 @@ const AllArticles = () => {
 
     const handleMakePremium = async (id) => {
         try {
-            await axiosSecure.patch(`/admin/articles/${id}/make-premium`);
-            toast.info("Marked as premium");
+            const article = articles.find(a => a._id === id);
+            const newStatus = !article.isPremium;
+
+            await axiosSecure.patch(`/admin/articles/${id}/make-premium`, {
+                isPremium: newStatus,
+            });
+
+            toast.info(`Article marked as ${newStatus ? 'Premium' : 'Not Premium'}`);
             refetch();
         } catch (err) {
-            console.error(err)
+            console.error(err);
             toast.error("Failed to update premium status");
         }
     };
+
 
     return (
         <div className="p-4 md:p-6 dark:bg-gray-900 dark:text-white min-h-screen transition-colors">
@@ -151,9 +159,21 @@ const AllArticles = () => {
                                         )}
                                         <button
                                             onClick={() => handleMakePremium(article._id)}
-                                            className="px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 text-xs w-full md:w-auto"
+                                            className={`px-3 py-1 ${article.isPremium ? 'bg-gray-500 hover:bg-gray-600' : 'bg-purple-600 hover:bg-purple-700'} text-white rounded text-xs w-full md:w-auto`}
                                         >
-                                            Premium
+                                            <span className="flex items-center gap-1 text-sm font-medium">
+                                                {article.isPremium ? (
+                                                    <>
+                                                        <XCircle className="text-white w-4 h-4" />
+                                                        Premium
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <CheckCircle className="text-white w-4 h-4" />
+                                                         Premium
+                                                    </>
+                                                )}
+                                            </span>
                                         </button>
                                         <button
                                             onClick={() => handleDelete(article._id)}
@@ -176,8 +196,8 @@ const AllArticles = () => {
                         key={i}
                         onClick={() => setPage(i + 1)}
                         className={`px-1 py-0 rounded-md text-sm font-medium border ${page === i + 1
-                                ? 'bg-blue-600 text-white border-blue-600'
-                                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700'
+                            ? 'bg-blue-600 text-white border-blue-600'
+                            : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700'
                             }`}
                     >
                         {i + 1}

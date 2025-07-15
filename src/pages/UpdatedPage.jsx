@@ -1,34 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
-import { useQuery } from '@tanstack/react-query';
+import { useParams, useNavigate } from 'react-router';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import useAxios from '../hooks/useAxios';
 import Loading from '../components/Loading';
-import { useNavigate } from 'react-router';
 
-const AddArticle = () => {
+const UpdatedPage = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
+    const axios = useAxios();
+
     const {
         register,
         handleSubmit,
-        control,
-        reset,
         setValue,
+        control,
         formState: { errors }
     } = useForm();
-
-    const axios = useAxios();
-    const axiosSecure = useAxiosSecure();
-    const navigate = useNavigate();
-
-    const { data: publishers = [], isLoading, isError } = useQuery({
-        queryKey: ['publishers'],
-        queryFn: async () => {
-            const res = await axios.get('/api/publishers');
-            return res.data;
-        }
-    });
 
     const tagOptions = [
         { value: 'politics', label: 'Politics' },
@@ -43,10 +35,39 @@ const AddArticle = () => {
         { value: 'climate', label: 'Climate' }
     ];
 
+    const isDarkMode = document.documentElement.classList.contains('dark');
+
+    // Fetch article
+    const { data: article, isLoading: loadingArticle } = useQuery({
+        queryKey: ['article', id],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/articles/${id}`);
+            return res.data;
+        },
+        enabled: !!id
+    });
+
+    // Fetch publishers
+    const { data: publishers = [], isLoading: loadingPublishers } = useQuery({
+        queryKey: ['publishers'],
+        queryFn: async () => {
+            const res = await axios.get('/api/publishers');
+            return res.data;
+        }
+    });
+
+    useEffect(() => {
+        if (article) {
+            setValue('title', article.title);
+            setValue('description', article.description);
+            setValue('publisher', article.publisher);
+            setValue('tags', article.tags.map((tag) => ({ label: tag, value: tag })));
+        }
+    }, [article, setValue]);
+
     const handleImageUpload = async (imageFile) => {
         const formData = new FormData();
         formData.append('image', imageFile);
-
         const res = await axios.post(
             `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_PROFILE_KEY}`,
             formData
@@ -54,39 +75,44 @@ const AddArticle = () => {
         return res.data.data.url;
     };
 
-    const onSubmit = async (data) => {
-        try {
-            const imageUrl = await handleImageUpload(data.image[0]);
-            const article = {
-                title: data.title,
-                image: imageUrl,
-                publisher: data.publisher,
-                tags: data.tags.map((tag) => tag.value),
-                description: data.description
-            };
-
-            const res = await axiosSecure.post('/addArticles', article);
-            if (res.data.insertedId) {
-                Swal.fire('Success', 'Article submitted for review!', 'success');
-                reset();
-                setValue('tags', []);
-                navigate('/my-articles')
-            }
-        } catch (error) {
-            const msg = error.response?.data?.message || 'Something went wrong';
+    const mutation = useMutation({
+        mutationFn: async (updatedData) => {
+            return await axiosSecure.put(`/articles/${id}`, updatedData);
+        },
+        onSuccess: () => {
+            Swal.fire('Success', 'Article updated successfully!', 'success');
+            navigate('/my-articles');
+        },
+        onError: (err) => {
+            const msg = err.response?.data?.message || 'Update failed';
             Swal.fire('Error', msg, 'error');
         }
+    });
+
+    const onSubmit = async (data) => {
+        let imageUrl = article.image;
+
+        if (data.image?.[0]) {
+            imageUrl = await handleImageUpload(data.image[0]);
+        }
+
+        const updatedData = {
+            title: data.title,
+            description: data.description,
+            image: imageUrl,
+            publisher: data.publisher,
+            tags: data.tags.map((tag) => tag.value)
+        };
+
+        mutation.mutate(updatedData);
     };
 
-    if (isLoading) return <Loading />;
-    if (isError) return <p className="text-red-500 text-center">Error loading publishers.</p>;
-    const isDarkMode = document.documentElement.classList.contains('dark');
+    if (loadingArticle || loadingPublishers) return <Loading />;
+
     return (
-        <section className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 px-4 py-12 flex items-center justify-center">
+        <section className="min-h-screen px-4 py-12 flex items-center justify-center bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
             <div className="w-full max-w-3xl bg-white/70 dark:bg-white/5 backdrop-blur-md border border-gray-200 dark:border-white/10 shadow-xl rounded-3xl p-10 space-y-8 transition-all">
-                <h2 className="text-4xl font-bold text-center drop-shadow-lg">
-                    Add New Article
-                </h2>
+                <h2 className="text-4xl font-bold text-center drop-shadow-lg">Update Article</h2>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     {/* Title */}
@@ -95,20 +121,18 @@ const AddArticle = () => {
                         <input
                             {...register('title', { required: true })}
                             className="w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                            placeholder="Enter article title"
                         />
                         {errors.title && <p className="text-sm text-red-500 mt-1">Title is required</p>}
                     </div>
 
                     {/* Image */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Image</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Replace Image (optional)</label>
                         <input
                             type="file"
-                            {...register('image', { required: true })}
+                            {...register('image')}
                             className="w-full px-4 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white"
                         />
-                        {errors.image && <p className="text-sm text-red-500 mt-1">Image is required</p>}
                     </div>
 
                     {/* Publisher */}
@@ -134,7 +158,6 @@ const AddArticle = () => {
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tags</label>
                         <Controller
                             name="tags"
-                            defaultValue={[]}
                             control={control}
                             rules={{ required: true }}
                             render={({ field }) => (
@@ -142,18 +165,15 @@ const AddArticle = () => {
                                     {...field}
                                     isMulti
                                     options={tagOptions}
-                                    className="react-select-container"
                                     classNamePrefix="react-select"
                                     styles={{
                                         control: (base, state) => ({
                                             ...base,
-                                            backgroundColor: isDarkMode ? '#1f2937' : '#ffffff', // dark: gray-800
+                                            backgroundColor: isDarkMode ? '#1f2937' : '#ffffff',
                                             color: isDarkMode ? '#ffffff' : '#000000',
                                             borderColor: state.isFocused ? '#6366f1' : isDarkMode ? '#374151' : '#d1d5db',
                                             boxShadow: state.isFocused ? '0 0 0 1px #6366f1' : 'none',
-                                            '&:hover': {
-                                                borderColor: '#6366f1',
-                                            },
+                                            '&:hover': { borderColor: '#6366f1' }
                                         }),
                                         menu: (base) => ({
                                             ...base,
@@ -163,19 +183,11 @@ const AddArticle = () => {
                                         option: (base, state) => ({
                                             ...base,
                                             backgroundColor: state.isFocused
-                                                ? '#3b82f6' // blue-500 hover
+                                                ? '#3b82f6'
                                                 : isDarkMode ? '#1f2937' : '#ffffff',
                                             color: state.isFocused
                                                 ? '#ffffff'
                                                 : isDarkMode ? '#ffffff' : '#000000',
-                                        }),
-                                        singleValue: (base) => ({
-                                            ...base,
-                                            color: isDarkMode ? '#ffffff' : '#000000',
-                                        }),
-                                        placeholder: (base) => ({
-                                            ...base,
-                                            color: isDarkMode ? '#9ca3af' : '#6b7280',
                                         }),
                                         multiValue: (base) => ({
                                             ...base,
@@ -194,20 +206,9 @@ const AddArticle = () => {
                                             },
                                         }),
                                     }}
-                                    theme={(theme) => ({
-                                        ...theme,
-                                        colors: {
-                                            ...theme.colors,
-                                            primary: '#6366f1',
-                                            primary25: '#3b82f6',
-                                            neutral0: isDarkMode ? '#1f2937' : '#ffffff',
-                                            neutral80: isDarkMode ? '#ffffff' : '#000000',
-                                        },
-                                    })}
                                 />
                             )}
                         />
-
                         {errors.tags && <p className="text-sm text-red-500 mt-1">Select at least one tag</p>}
                     </div>
 
@@ -228,7 +229,7 @@ const AddArticle = () => {
                         type="submit"
                         className="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition duration-300 shadow-md hover:shadow-xl"
                     >
-                        Submit Article
+                        Update Article
                     </button>
                 </form>
             </div>
@@ -236,4 +237,4 @@ const AddArticle = () => {
     );
 };
 
-export default AddArticle;
+export default UpdatedPage;
