@@ -10,19 +10,22 @@ import { ToastContainer } from 'react-toastify';
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { HelmetProvider } from 'react-helmet-async';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Elements stripe={stripePromise}>
-          <RouterProvider router={router} />
-        </Elements>
-        <ToastContainer position="top-center" />
-      </AuthProvider>
-    </QueryClientProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <Elements stripe={stripePromise}>
+            <RouterProvider router={router} />
+          </Elements>
+          <ToastContainer position="top-center" />
+        </AuthProvider>
+      </QueryClientProvider>
+    </HelmetProvider>
   </StrictMode>
 );

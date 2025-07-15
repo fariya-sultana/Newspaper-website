@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet-async';
 
 const imageHostKey = import.meta.env.VITE_IMAGE_PROFILE_KEY;
 const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
@@ -47,6 +48,9 @@ const AddPublishers = () => {
 
     return (
         <div className="max-w-xl mx-auto mt-10 bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700">
+            <Helmet>
+                <title> NewsPress | Dashboard | Add Publisher </title>
+            </Helmet>
             <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800 dark:text-gray-100">
                 Add New Publisher
             </h2>

@@ -5,6 +5,7 @@ import useAuth from '../hooks/useAuth';
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import { auth } from '../services/firebase';
+import { Helmet } from 'react-helmet-async';
 
 const MyProfilePage = () => {
     const { user, updateUserProfile } = useAuth();
@@ -81,6 +82,9 @@ const MyProfilePage = () => {
 
     return (
         <div className="max-w-3xl mx-auto px-4 py-12">
+            <Helmet>
+                <title> NewsPress | My Profile Page </title>
+            </Helmet>
             <h2 className="text-3xl font-bold text-center mb-6">My Profile</h2>
 
             <form

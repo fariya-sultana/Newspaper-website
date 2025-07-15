@@ -83,6 +83,9 @@ const AddArticle = () => {
     const isDarkMode = document.documentElement.classList.contains('dark');
     return (
         <section className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 px-4 py-12 flex items-center justify-center">
+            <Helmet>
+                <title> NewsPress | Add Article </title>
+            </Helmet>
             <div className="w-full max-w-3xl bg-white/70 dark:bg-white/5 backdrop-blur-md border border-gray-200 dark:border-white/10 shadow-xl rounded-3xl p-10 space-y-8 transition-all">
                 <h2 className="text-4xl font-bold text-center drop-shadow-lg">
                     Add New Article

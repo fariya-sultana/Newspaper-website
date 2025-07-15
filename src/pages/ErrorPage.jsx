@@ -1,9 +1,13 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router";
 
 const ErrorPage = () => {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gradient-to-br dark:from-slate-900 dark:to-slate-700 text-gray-900 dark:text-white flex flex-col justify-center items-center px-4 text-center">
+      <Helmet>
+        <title> NewsPress | Error Page </title>
+      </Helmet>
       <div className="text-[10rem] font-extrabold tracking-wider animate-pulse text-blue-700 dark:text-blue-400">
         404
       </div>

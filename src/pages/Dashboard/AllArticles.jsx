@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { Dialog } from '@headlessui/react';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { CheckCircle, XCircle } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 const AllArticles = () => {
     const axiosSecure = useAxiosSecure();
@@ -83,6 +84,9 @@ const AllArticles = () => {
 
     return (
         <div className="p-4 md:p-6 dark:bg-gray-900 dark:text-white min-h-screen transition-colors">
+            <Helmet>
+                <title> NewsPress | Dashboard | All Articles</title>
+            </Helmet>
             <h2 className="text-2xl font-bold mb-6 text-center">All Articles</h2>
 
             <div className="w-full overflow-x-auto rounded-xl shadow ring-1 ring-gray-300 dark:ring-gray-700">
@@ -170,7 +174,7 @@ const AllArticles = () => {
                                                 ) : (
                                                     <>
                                                         <CheckCircle className="text-white w-4 h-4" />
-                                                         Premium
+                                                        Premium
                                                     </>
                                                 )}
                                             </span>

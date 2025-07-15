@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { NavLink, Outlet } from 'react-router';
-import { FaUsers, FaNewspaper, FaBuilding, FaBars, FaTimes, FaHome } from 'react-icons/fa';
-
+import { Link, NavLink, Outlet } from 'react-router';
+import { FaUsers, FaNewspaper, FaBuilding, FaBars, FaTimes, FaHome, FaChartPie } from 'react-icons/fa';
+import logo from '/logo.jpeg';
 const DashboardLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -20,7 +20,10 @@ const DashboardLayout = () => {
                 <button onClick={toggleSidebar} className="text-xl text-gray-800 dark:text-gray-200">
                     <FaBars />
                 </button>
-                <h1 className="text-xl font-bold">📰 NewsPress</h1>
+                <div className="flex items-center gap-2">
+                    <Link to="/" className="text-xl lg:text-2xl font-bold text-blue-600 dark:text-blue-400 inline-flex items-center gap-2"><img className='w-10' src={logo} alt="" /> NewsPress</Link>
+                </div>
+
             </div>
 
             {/* Sidebar - Desktop */}
@@ -31,6 +34,9 @@ const DashboardLayout = () => {
                 <nav className="p-4">
                     <NavLink to="/" className={linkClass}>
                         <FaHome /> Back Home
+                    </NavLink>
+                    <NavLink to="charts" className={linkClass}>
+                        <FaChartPie /> Charts
                     </NavLink>
                     <NavLink to="users" className={linkClass}>
                         <FaUsers /> All Users
@@ -65,6 +71,9 @@ const DashboardLayout = () => {
                         <nav>
                             <NavLink to="/" className={linkClass} onClick={closeSidebar}>
                                 <FaHome /> Back Home
+                            </NavLink>
+                            <NavLink to="charts" className={linkClass}>
+                                <FaChartPie /> Charts
                             </NavLink>
                             <NavLink to="users" className={linkClass} onClick={closeSidebar}>
                                 <FaUsers /> All Users

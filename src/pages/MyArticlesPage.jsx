@@ -3,8 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import { Link } from 'react-router';
 import { toast } from 'react-toastify';
-import { Info, PencilLine, Trash2} from 'lucide-react';
+import { Info, PencilLine, Trash2 } from 'lucide-react';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const MyArticlesPage = () => {
     const axiosSecure = useAxiosSecure();
@@ -44,6 +45,9 @@ const MyArticlesPage = () => {
 
     return (
         <div className="max-w-screen-xl mx-auto px-4 py-10 text-gray-900 dark:text-white">
+            <Helmet>
+                <title> NewsPress | My Articles Page </title>
+            </Helmet>
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
                 <span className="inline-flex items-center gap-2">
                     My Articles

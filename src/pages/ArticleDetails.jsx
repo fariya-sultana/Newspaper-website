@@ -5,6 +5,7 @@ import useAxiosSecure from '../hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
 import useAxios from '../hooks/useAxios';
 import Loading from '../components/Loading';
+import { Helmet } from 'react-helmet-async';
 
 const ArticleDetails = () => {
     const { id } = useParams();
@@ -20,7 +21,7 @@ const ArticleDetails = () => {
         },
     });
 
-   
+
     useEffect(() => {
         if (!id || hasPatched.current) return;
 
@@ -37,6 +38,9 @@ const ArticleDetails = () => {
 
     return (
         <div className="max-w-5xl mx-auto px-4 md:px-6 py-10 text-gray-800 dark:text-gray-100">
+            <Helmet>
+                <title> NewsPress | Articles Details </title>
+            </Helmet>
             <h1 className="text-3xl md:text-4xl font-bold font-serif leading-tight mb-2">
                 {title}
             </h1>

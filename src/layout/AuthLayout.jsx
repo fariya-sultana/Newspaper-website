@@ -1,16 +1,16 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router';
 import loginImg from '../assets/undraw_login_weas.png';
+import logo from '/logo.jpeg';
 
 const AuthLayout = () => {
     return (
         <div className='relative'>
             <div className='absolute top-6 left-12 z-10 '>
                 {/* Logo and Site Name */}
-                <Link to="/" className="flex items-center gap-2 mb-10 text-blue-600 dark:text-blue-400 font-bold text-2xl">
-                    📰 <span>NewsPress</span>
-                </Link>
+                <Link to="/" className="text-xl lg:text-2xl font-bold text-blue-600 dark:text-blue-400 inline-flex items-center gap-2"><img className='w-10' src={logo} alt="" /> NewsPress</Link>
             </div>
+
             <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
                 {/* LEFT: Auth Form and Logo */}
                 <div className=" justify-center">

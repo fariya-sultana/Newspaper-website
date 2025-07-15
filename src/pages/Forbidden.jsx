@@ -1,9 +1,13 @@
 import { Link } from "react-router";
 import forbiddenImg from '../assets/undraw-forbidden.png';
+import { Helmet } from "react-helmet-async";
 
 const Forbidden = () => {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 p-6">
+            <Helmet>
+                <title> NewsPress | Forbidden Page </title>
+            </Helmet>
             <div className="bg-white dark:bg-gray-800 p-10 rounded-lg shadow-md text-center max-w-lg w-full border dark:border-gray-700">
                 <img
                     src={forbiddenImg}

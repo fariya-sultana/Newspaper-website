@@ -4,6 +4,7 @@ import useUserRole from '../../hooks/useUserRole';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Loading from '../../components/Loading';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet-async';
 
 const AllUsers = () => {
     const axiosSecure = useAxiosSecure();
@@ -40,6 +41,9 @@ const AllUsers = () => {
 
     return (
         <div className="p-6 dark:bg-gray-900 dark:text-white min-h-screen">
+            <Helmet>
+                <title> NewsPress | Dashboard | All Users </title>
+            </Helmet>
             <h2 className="text-2xl font-bold mb-6 text-center">All Users</h2>
 
             <div className="overflow-x-auto bg-white dark:bg-gray-800 shadow rounded">

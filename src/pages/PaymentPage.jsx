@@ -4,6 +4,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth';
+import { Helmet } from 'react-helmet-async';
 
 const PaymentPage = () => {
     const {
@@ -66,9 +67,12 @@ const PaymentPage = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-100 dark:from-gray-900 dark:to-purple-900 px-6 py-12 transition-colors duration-500">
+            <Helmet>
+                <title> NewsPress | Payment Page</title>
+            </Helmet>
             <div className="max-w-lg w-full bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-10 flex flex-col gap-6 border border-indigo-200 dark:border-purple-700">
                 <h2 className="text-4xl font-extrabold text-indigo-700 dark:text-purple-400 text-center drop-shadow-lg">
-                 Complete Your Payment
+                    Complete Your Payment
                 </h2>
 
                 <div className="text-center text-gray-600 dark:text-gray-300 s flex gap-3 items-center justify-center">

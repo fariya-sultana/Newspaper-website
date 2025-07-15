@@ -4,6 +4,7 @@ import useAuth from '../hooks/useAuth';
 import { Link } from 'react-router';
 import useAxios from '../hooks/useAxios';
 import Select from 'react-select';
+import { Helmet } from 'react-helmet-async';
 
 const tagOptions = [
     { value: 'politics', label: 'Politics' },
@@ -51,6 +52,9 @@ const AllArticle = () => {
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-10 text-gray-800 dark:text-gray-100">
+            <Helmet>
+                <title> NewsPress | All Articles </title>
+            </Helmet>
             <h2 className="text-3xl font-bold text-center mb-8">Explore All Articles</h2>
 
             {/* Filters */}

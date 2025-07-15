@@ -5,6 +5,7 @@ import { useNavigate, useLocation, Link } from 'react-router';
 import useAuth from '../hooks/useAuth';
 import useAxios from '../hooks/useAxios';
 import { FcGoogle } from 'react-icons/fc';
+import { Helmet } from 'react-helmet-async';
 
 const LogIn = () => {
     const { signIn, signInWithGoogle } = useAuth();
@@ -64,6 +65,9 @@ const LogIn = () => {
     return (
 
         <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+            <Helmet>
+                <title> NewsPress | Login Page</title>
+            </Helmet>
             <div className="w-full max-w-md bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg border dark:border-gray-700">
                 <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100">
                     Login to NewsPress

@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router'; 
+import { Link } from 'react-router';
 import Loading from '../components/Loading';
 import useAxiosSecure from '../hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet-async';
 
 const PremiumArticles = () => {
     const axiosSecure = useAxiosSecure();
@@ -19,6 +20,9 @@ const PremiumArticles = () => {
 
     return (
         <div className="min-h-screen bg-white text-black dark:bg-gradient-to-br dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 dark:text-white px-4 py-12">
+            <Helmet>
+                <title> NewsPress | Premium Articles </title>
+            </Helmet>
             <h1 className="text-4xl font-bold mb-10 text-center tracking-wide"> Exclusive Premium Articles</h1>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">

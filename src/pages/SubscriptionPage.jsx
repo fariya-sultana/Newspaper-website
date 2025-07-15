@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import useAxiosSecure from '../hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet-async';
 
 const SubscriptionPage = () => {
     const axiosSecure = useAxiosSecure();
@@ -27,6 +28,9 @@ const SubscriptionPage = () => {
 
     return (
         <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+            <Helmet>
+                <title> NewsPress | Subscription Page </title>
+            </Helmet>
             {/* Hero Banner */}
             <div className="text-center py-20 px-6 bg-gradient-to-r from-purple-600 via-indigo-500 to-blue-500 text-white dark:text-white shadow-xl">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">Unlock Premium Access</h1>

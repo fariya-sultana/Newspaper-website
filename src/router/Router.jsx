@@ -22,6 +22,7 @@ import PaymentPage from "../pages/PaymentPage";
 import MyArticlesPage from "../pages/MyArticlesPage";
 import UpdatedPage from "../pages/UpdatedPage";
 import MyProfilePage from "../pages/MyProfilePage";
+import AdminCharts from "../pages/Dashboard/AdminCharts";
 
 const router = createBrowserRouter([
     {
@@ -81,16 +82,24 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             {
+                index: true, // ⬅️ this makes /dashboard go to:
+                element: <AdminRoute><AdminCharts /></AdminRoute>
+            },
+            {
+                path: 'charts',
+                element: <AdminRoute><AdminCharts /></AdminRoute>
+            },
+            {
                 path: 'users',
-                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+                element: <AdminRoute><AllUsers /></AdminRoute>
             },
             {
                 path: 'articles',
-                element: <AdminRoute><AllArticles></AllArticles></AdminRoute>
+                element: <AdminRoute><AllArticles /></AdminRoute>
             },
             {
                 path: 'publishers',
-                element: <AdminRoute><AddPublishers></AddPublishers></AdminRoute>
+                element: <AdminRoute><AddPublishers /></AdminRoute>
             }
         ]
     },

@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../hooks/useAuth';
 import useAxios from '../hooks/useAxios';
+import { Helmet } from 'react-helmet-async';
 
 const Register = () => {
     const { createUser, updateUserProfile, signInWithGoogle } = useAuth();
@@ -94,6 +95,9 @@ const Register = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4">
+            <Helmet>
+                <title> NewsPress | Register page </title>
+            </Helmet>
             <div className="w-full max-w-md bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border dark:border-gray-700 mt-6">
                 <h2 className="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-gray-100">
                     Create an Account
