@@ -7,6 +7,7 @@ import useAxiosSecure from '../hooks/useAxiosSecure';
 import useAxios from '../hooks/useAxios';
 import Loading from '../components/Loading';
 import { useNavigate } from 'react-router';
+import { Helmet } from 'react-helmet-async';
 
 const AddArticle = () => {
     const {
@@ -86,7 +87,7 @@ const AddArticle = () => {
             <Helmet>
                 <title> NewsPress | Add Article </title>
             </Helmet>
-            <div className="w-full max-w-3xl bg-white/70 dark:bg-white/5 backdrop-blur-md border border-gray-200 dark:border-white/10 shadow-xl rounded-3xl p-10 space-y-8 transition-all">
+            <div className="w-full max-w-3xl bg-white/70 dark:bg-white/5 backdrop-blur-md border border-gray-200 dark:border-white/10 shadow-xl rounded-3xl p-4 md:p-10 space-y-8 transition-all">
                 <h2 className="text-4xl font-bold text-center drop-shadow-lg">
                     Add New Article
                 </h2>

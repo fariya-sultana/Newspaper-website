@@ -21,7 +21,7 @@ const DashboardLayout = () => {
                     <FaBars />
                 </button>
                 <div className="flex items-center gap-2">
-                    <Link to="/" className="text-xl lg:text-2xl font-bold text-blue-600 dark:text-blue-400 inline-flex items-center gap-2"><img className='w-10' src={logo} alt="" /> NewsPress</Link>
+                    <Link to="/" className="text-xl lg:text-2xl font-bold text-blue-600 dark:text-blue-400 inline-flex items-center gap-2"><img className='w-6 md:w-10' src={logo} alt="" /> NewsPress</Link>
                 </div>
 
             </div>

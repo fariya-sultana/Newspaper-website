@@ -1,137 +1,134 @@
 import React, { useEffect, useState } from 'react';
 import { Chart } from 'react-google-charts';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
-import { useDarkMode } from "../../hooks/useDarkMode"; // adjust path as needed
+import { useDarkMode } from '../../hooks/useDarkMode';
 import { Helmet } from 'react-helmet-async';
 
 const AdminCharts = () => {
     const isDark = useDarkMode();
-
-    const commonTextColor = isDark ? "#ffffff" : "#333333";
-    const backgroundColor = isDark ? "#1f2937" : "#ffffff";
-    const axiosSecure = useAxiosSecure();
-    const [publicationData, setPublicationData] = useState([]);
+    const textColor = isDark ? "#fff" : "#333";
+    const containerBg = isDark ? "#1f2937" : "#fff";
+    const chartBg = isDark ? "#1f2937" : "#ffffff"; // Use same as container for consistency
+    const axios = useAxiosSecure();
+    const [pubData, setPubData] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
+        (async () => {
             try {
-                const res = await axiosSecure.get('/articles/publication-stats'); // Adjust this endpoint to your actual one
-                const grouped = res.data; // Assume: [{ publication: 'A', count: 2 }, { publication: 'B', count: 3 }, ...]
+                const res = await axios.get('/articles/publication-stats');
 
-                const chartData = [['Publication', 'Articles']];
-                grouped.forEach(pub => {
-                    chartData.push([pub.publication, pub.count]);
+                if (!res.data || res.data.length === 0) {
+                    console.log("No publication data available");
+                    setPubData([['Publication', 'Articles']]);
+                    return;
+                }
+
+                const chart = [['Publication', 'Articles']];
+                res.data.forEach(p => {
+                    if (p.publication && typeof p.count === 'number') {
+                        chart.push([p.publication, p.count]);
+                    }
                 });
 
-                setPublicationData(chartData);
-            } catch (error) {
-                console.error("Error fetching publication stats:", error);
+                setPubData(chart);
+            } catch (e) {
+                console.error("Pie fetch error:", e?.response?.data || e.message);
+                setPubData([['Publication', 'Articles']]);
             }
-        };
+        })();
+    }, [axios]);
 
-        fetchData();
-    }, [axiosSecure]);
-
-    const pieOptions = {
-        title: "Articles by Publication",
-        backgroundColor,
+    const pieOpts = {
+        title: "Articles by Publisher",
+        backgroundColor: chartBg,
         pieHole: 0.4,
-        titleTextStyle: { color: commonTextColor },
-        legend: { textStyle: { color: commonTextColor } },
+        titleTextStyle: { color: textColor },
+        legend: { textStyle: { color: textColor } },
+        pieSliceTextStyle: { color: isDark ? "#fff" : "#000" },
+        chartArea: {
+            backgroundColor: chartBg,
+            left: 20,
+            top: 60,
+            width: '100%',
+            height: '80%'
+        }
     };
 
-    const barOptions = {
-        title: "Articles & Views",
-        backgroundColor,
-        titleTextStyle: { color: commonTextColor },
-        legend: { position: "bottom", textStyle: { color: commonTextColor } },
+    const barData = [['Year', 'Sales', 'Expenses'], ['2019', 1000, 400], ['2020', 1170, 460], ['2021', 660, 1120], ['2022', 1030, 540]];
+    const barOpts = {
+        title: "Sales vs Expenses",
+        backgroundColor: chartBg,
+        titleTextStyle: { color: textColor },
+        legend: { position: 'bottom', textStyle: { color: textColor } },
         hAxis: {
-            title: "Views",
-            textStyle: { color: commonTextColor },
-            titleTextStyle: { color: commonTextColor },
+            textStyle: { color: textColor },
+            titleTextStyle: { color: textColor },
+            gridlines: { color: isDark ? "#4b5563" : "#e5e7eb" }
         },
         vAxis: {
-            textStyle: { color: commonTextColor },
+            textStyle: { color: textColor },
+            gridlines: { color: isDark ? "#4b5563" : "#e5e7eb" }
         },
+        chartArea: {
+            backgroundColor: chartBg,
+            left: 60,
+            top: 60,
+            width: '80%',
+            height: '70%'
+        }
     };
 
-    const lineOptions = {
-        title: "Monthly Subscription Growth",
-        backgroundColor,
-        titleTextStyle: { color: commonTextColor },
-        legend: { position: "bottom", textStyle: { color: commonTextColor } },
+    const lineData = [['Month', 'Visitors'], ['Jan', 300], ['Feb', 600], ['Mar', 800], ['Apr', 700], ['May', 1000]];
+    const lineOpts = {
+        title: "Monthly Visitors",
+        backgroundColor: chartBg,
+        titleTextStyle: { color: textColor },
+        legend: { position: 'bottom', textStyle: { color: textColor } },
         hAxis: {
-            title: "Month",
-            textStyle: { color: commonTextColor },
-            titleTextStyle: { color: commonTextColor },
+            textStyle: { color: textColor },
+            gridlines: { color: isDark ? "#4b5563" : "#e5e7eb" }
         },
         vAxis: {
-            title: "Subscriptions",
-            textStyle: { color: commonTextColor },
-            titleTextStyle: { color: commonTextColor },
+            textStyle: { color: textColor },
+            gridlines: { color: isDark ? "#4b5563" : "#e5e7eb" }
         },
+        chartArea: {
+            backgroundColor: chartBg,
+            left: 60,
+            top: 60,
+            width: '80%',
+            height: '70%'
+        },
+        curveType: 'function',
+        lineWidth: 2,
+        pointSize: 5
     };
-
-    const barData = [
-        ['Year', 'Sales', 'Expenses'],
-        ['2019', 1000, 400],
-        ['2020', 1170, 460],
-        ['2021', 660, 1120],
-        ['2022', 1030, 540],
-    ];
-
-    const lineData = [
-        ['Month', 'Visitors'],
-        ['Jan', 300],
-        ['Feb', 600],
-        ['Mar', 800],
-        ['Apr', 700],
-        ['May', 1000],
-    ];
 
     return (
-        <div className="space-y-8 p-4">
-            {/* Pie Chart - Publication Distribution */}
-            <Helmet>
-                <title> NewsPress | Dashboard | Charts</title>
-            </Helmet>
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-lg">
-                <h2 className="text-xl font-semibold mb-4">Publication Distribution</h2>
-                {publicationData.length > 1 ? (
-                    <Chart
-                        chartType="PieChart"
-                        width="100%"
-                        height="300px"
-                        data={publicationData}  // <-- fixed here
-                        options={pieOptions}
-                    />
-                ) : (
-                    <p>Loading pie chart...</p>
-                )}
+        <div className="p-6 lg:p-10 grid gap-6 sm:grid-cols-1 md:grid-cols-2">
+            <Helmet><title>NewsPress Dashboard – Charts</title></Helmet>
+
+            <div className="chart-container" style={{ backgroundColor: containerBg, borderRadius: 8, padding: '1rem' }}>
+                <h3 className="mb-2 font-semibold text-lg text-center text-indigo-600">📊 Publication Distribution</h3>
+                {pubData.length > 1 ? (
+                    <div style={{ backgroundColor: chartBg, borderRadius: 4 }}>
+                        <Chart chartType="PieChart" data={pubData} options={pieOpts} width="100%" height="280px" />
+                    </div>
+                ) : <p className="text-center text-gray-500">Loading...</p>}
             </div>
 
-            {/* Bar Chart - Static */}
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-lg">
-                <h2 className="text-xl font-semibold mb-4">Sales vs Expenses</h2>
-                <Chart
-                    chartType="BarChart"  // changed to BarChart
-                    width="100%"
-                    height="300px"
-                    data={barData}
-                    options={barOptions}
-                />
+            <div className="chart-container" style={{ backgroundColor: containerBg, borderRadius: 8, padding: '1rem' }}>
+                <h3 className="mb-2 font-semibold text-lg text-center text-indigo-600">📈 Sales vs Expenses</h3>
+                <div style={{ backgroundColor: chartBg, borderRadius: 4 }}>
+                    <Chart chartType="BarChart" data={barData} options={barOpts} width="100%" height="280px" />
+                </div>
             </div>
 
-            {/* Area Chart - Static */}
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-lg md:col-span-2">
-                <h2 className="text-xl font-semibold mb-4">Monthly Visitors</h2>
-                <Chart
-                    chartType="LineChart"
-                    width="100%"
-                    height="300px"
-                    data={lineData}  // fixed to use lineData
-                    options={lineOptions}
-                />
+            <div className="chart-container md:col-span-2" style={{ backgroundColor: containerBg, borderRadius: 8, padding: '1rem' }}>
+                <h3 className="mb-2 font-semibold text-lg text-center text-indigo-600">📈 Monthly Visitors</h3>
+                <div style={{ backgroundColor: chartBg, borderRadius: 4 }}>
+                    <Chart chartType="LineChart" data={lineData} options={lineOpts} width="100%" height="300px" />
+                </div>
             </div>
         </div>
     );

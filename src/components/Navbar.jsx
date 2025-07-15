@@ -51,7 +51,7 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
                 {/* LEFT (Logo) */}
                 <div className="flex items-center gap-2">
-                    <Link to="/" className="text-xl lg:text-2xl font-bold text-blue-600 dark:text-blue-400 inline-flex items-center gap-2"><img className='w-10' src={logo}  alt="" /> NewsPress</Link>
+                    <Link to="/" className="text-xl lg:text-2xl font-bold text-blue-600 dark:text-blue-400 inline-flex items-center gap-2"><img className='w-6 md:w-10' src={logo}  alt="" /> NewsPress</Link>
                 </div>
 
                 {/* CENTER (Desktop Nav Links) */}
@@ -100,7 +100,7 @@ const Navbar = () => {
 
             {/* Mobile/Tablet Slide Down Menu */}
             {menuOpen && (
-                <div className="md:hidden px-4 pb-4 space-y-2 bg-white dark:bg-gray-900 shadow">
+                <div className="md:hidden px-4 pb-2 space-y-1 bg-white dark:bg-gray-900 shadow">
                     {user && (
                         <Link to="/profile" className="block text-center">
                             <img
@@ -110,10 +110,10 @@ const Navbar = () => {
                             />
                         </Link>
                     )}
-                    <div className="flex flex-col space-y-2 text-center">
+                    <div className="flex flex-col space-y-1 text-center">
                         {navLinks}
                     </div>
-                    <div className="pt-3 text-center">
+                    <div className="pt-2 text-center">
                         {user ? (
                             <button
                                 onClick={() => {
