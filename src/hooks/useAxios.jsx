@@ -2,7 +2,7 @@ import axios from "axios";
 
 const axiosInstant = axios.create({
 
-    baseURL: `http://localhost:5000`
+    baseURL: `https://newspaper-server-fawn.vercel.app`
 })
 
 const useAxios = () => {
