@@ -23,6 +23,7 @@ import MyArticlesPage from "../pages/MyArticlesPage";
 import UpdatedPage from "../pages/UpdatedPage";
 import MyProfilePage from "../pages/MyProfilePage";
 import AdminCharts from "../pages/Dashboard/AdminCharts";
+import AboutUs from "../pages/About";
 
 const router = createBrowserRouter([
     {
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
             {
                 path: '/profile',
                 element: <PrivateRoutes><MyProfilePage></MyProfilePage></PrivateRoutes>
+            },
+            {
+                path: '/about',
+                Component: AboutUs
             }
         ]
     },
