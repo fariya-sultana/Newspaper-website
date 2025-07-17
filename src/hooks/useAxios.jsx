@@ -9,5 +9,4 @@ const useAxios = () => {
     return axiosInstant;
 
 };
-
 export default useAxios;

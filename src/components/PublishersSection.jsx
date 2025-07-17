@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Eye, FileText, Globe } from 'lucide-react';
-import axios from 'axios';
 import Loading from './Loading';
+import axios from 'axios';
+// import useAxios from '../hooks/useAxios';
 
 const PublishersSection = () => {
     const [publishers, setPublishers] = useState([]);
     const [loading, setLoading] = useState(true);
-
+// const axios = useAxios()
     useEffect(() => {
         fetchPublishers();
     }, []);

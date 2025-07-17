@@ -3,18 +3,18 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
 import { Link } from 'react-router';
 import { FaEye, FaCalendarAlt } from 'react-icons/fa';
-import axios from 'axios';
-
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-fade';
+import axios from 'axios';
+// import useAxios from '../hooks/useAxios';
 
 const TrendingSlider = () => {
     const [trendingArticles, setTrendingArticles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentText, setCurrentText] = useState('');
     const [textIndex, setTextIndex] = useState(0);
-
+    // const axios = useAxios();
     const typewriterTexts = [
         'Latest Breaking News',
         'Trending Stories',
