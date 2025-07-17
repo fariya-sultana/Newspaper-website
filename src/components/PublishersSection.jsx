@@ -14,7 +14,7 @@ const PublishersSection = () => {
 
     const fetchPublishers = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/publishers/with-stats');
+            const response = await axios.get('https://newspaper-server-fawn.vercel.app/api/publishers/with-stats');
             setPublishers(response.data);
         } catch (error) {
             console.error('Error fetching publishers:', error);

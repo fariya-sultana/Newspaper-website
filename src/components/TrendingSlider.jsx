@@ -46,7 +46,7 @@ const TrendingSlider = () => {
         const fetchTrendingArticles = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get(`http://localhost:5000/articles/trending`);
+                const response = await axios.get(`https://newspaper-server-fawn.vercel.app/articles/trending`);
                 setTrendingArticles(response.data);
             } catch (error) {
                 console.error('Error fetching trending articles:', error);

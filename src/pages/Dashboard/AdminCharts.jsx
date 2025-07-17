@@ -18,7 +18,6 @@ const AdminCharts = () => {
                 const res = await axios.get('/articles/publication-stats');
 
                 if (!res.data || res.data.length === 0) {
-                    console.log("No publication data available");
                     setPubData([['Publication', 'Articles']]);
                     return;
                 }

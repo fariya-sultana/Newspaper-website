@@ -97,7 +97,7 @@ bash
 Copy
 Edit
 # 1. Clone the repository
-git clone https://github.com/your-username/newspress-client.git
+git clone https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-fariya-sultana.git
 cd newspress-client
 
 # 2. Install dependencies
