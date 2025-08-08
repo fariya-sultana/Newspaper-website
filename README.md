@@ -6,7 +6,7 @@ Welcome to **NewsPress**, a modern full-stack newspaper platform built with Reac
 
 ## 🚀 Live Website
 
-🔗 [Live Site](https://newspaper-website-a09b8.web.app/)
+🔗 (https://newspaper-website-a09b8.web.app/)
 
 ---
 
