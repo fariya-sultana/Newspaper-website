@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink, Outlet } from 'react-router';
-import { FaUsers, FaNewspaper, FaBuilding, FaBars, FaTimes, FaHome, FaChartPie } from 'react-icons/fa';
+import { FaUsers, FaNewspaper, FaBuilding, FaBars, FaTimes, FaHome, FaChartPie, FaUser, } from 'react-icons/fa';
 import logo from '/logo.jpeg';
 const DashboardLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -32,8 +32,8 @@ const DashboardLayout = () => {
                     Admin Dashboard
                 </div>
                 <nav className="p-4">
-                    <NavLink to="/" className={linkClass}>
-                        <FaHome /> Back Home
+                    <NavLink to="profile" className={linkClass}>
+                        <FaUser /> My Profile
                     </NavLink>
                     <NavLink to="charts" className={linkClass}>
                         <FaChartPie /> Charts
@@ -46,6 +46,9 @@ const DashboardLayout = () => {
                     </NavLink>
                     <NavLink to="publishers" className={linkClass}>
                         <FaBuilding /> Add Publisher
+                    </NavLink>
+                    <NavLink to="/" className={linkClass}>
+                        <FaHome /> Back Home
                     </NavLink>
                 </nav>
             </aside>
@@ -69,8 +72,8 @@ const DashboardLayout = () => {
                         </button>
                         <div className="text-xl font-bold mb-4">Admin Dashboard</div>
                         <nav>
-                            <NavLink to="/" className={linkClass} onClick={closeSidebar}>
-                                <FaHome /> Back Home
+                            <NavLink to="profile" className={linkClass}>
+                                <FaUser /> My Profile
                             </NavLink>
                             <NavLink to="charts" className={linkClass}>
                                 <FaChartPie /> Charts
@@ -83,6 +86,9 @@ const DashboardLayout = () => {
                             </NavLink>
                             <NavLink to="publishers" className={linkClass} onClick={closeSidebar}>
                                 <FaBuilding /> Add Publisher
+                            </NavLink>
+                            <NavLink to="/" className={linkClass} onClick={closeSidebar}>
+                                <FaHome /> Back Home
                             </NavLink>
                         </nav>
                     </aside>

@@ -91,6 +91,10 @@ const router = createBrowserRouter([
                 element: <AdminRoute><AdminCharts /></AdminRoute>
             },
             {
+                path: 'profile',
+                element: <AdminRoute><MyProfilePage /></AdminRoute>
+            },
+            {
                 path: 'charts',
                 element: <AdminRoute><AdminCharts /></AdminRoute>
             },
