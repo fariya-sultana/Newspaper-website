@@ -122,9 +122,9 @@ const TestimonialsSection = () => {
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 {/* Header */}
                 <div ref={headerRef} className="text-center mb-20">
-                    <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-full border border-green-400/30">
-                        <Quote className="text-green-400 w-5 h-5" />
-                        <span className="text-sm font-medium text-green-700 dark:text-green-300 uppercase tracking-wider">
+                    <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 bg-gradient-to-r from-blue-500/20 to-blue-800/20 rounded-full border border-blue-400/30">
+                        <Quote className="text-blue-400 w-5 h-5" />
+                        <span className="text-sm font-medium text-blue-700 dark:text-blue-300 uppercase tracking-wider">
                             Trusted by Thousands
                         </span>
                     </div>

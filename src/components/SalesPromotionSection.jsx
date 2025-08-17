@@ -186,8 +186,8 @@ const SalesPromotionSection = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
         <div ref={headerRef} className="text-center mb-16">
-          <div className="inline-flex items-center justify-center gap-2 mb-6 px-6 py-3 bg-gradient-to-r from-blue-500/30 to-blue-700/30 rounded-full border border-blue-400/50 backdrop-blur-sm">
-            <Gift className="text-blue-500 w-6 h-6" />
+          <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 bg-gradient-to-r from-blue-500/30 to-blue-700/30 rounded-full border border-blue-400/50 backdrop-blur-sm">
+            <Gift className="text-blue-500 w-5 h-5" />
             <span className="text-sm font-bold text-blue-500 uppercase tracking-wider">
               Limited Time Offer
             </span>
@@ -197,11 +197,11 @@ const SalesPromotionSection = () => {
             BLACK FRIDAY SALE
           </h2>
 
-          <div className="flex items-center justify-center gap-4 mb-8">
+          <div className="md:flex items-center justify-center gap-4 mb-8 space-y-3">
             <div className="bg-gradient-to-r from-blue-500 to-pink-500 text-white px-6 py-2 rounded-full font-bold text-xl">
               75% OFF
             </div>
-            <div className="text-3xl font-bold">
+            <div className="text-2xl md:text-3xl font-bold">
               Premium Plans
             </div>
           </div>
@@ -213,7 +213,7 @@ const SalesPromotionSection = () => {
         </div>
 
         {/* Countdown Timer */}
-        <div ref={timerRef} className="bg-white/10 backdrop-blur-lg rounded-3xl  border border-white/20">
+        <div ref={timerRef} className="bg-white/10 backdrop-blur-lg rounded-3xl  border border-white/20 p-8 ">
           <div className="text-center mb-6">
             <div className="inline-flex items-center gap-2 text-purple-600 mb-2">
               <Timer className="w-6 h-6" />
@@ -221,7 +221,7 @@ const SalesPromotionSection = () => {
             </div>
           </div>
 
-          <div className="flex justify-center items-center gap-4 md:gap-8">
+          <div className="flex justify-center items-center gap-2 md:gap-8">
             {Object.entries(timeLeft).map(([unit, value]) => (
               <div key={unit} className="text-center">
                 <div className="bg-gradient-to-br from-purple-500 to-pink-600 text-white rounded-2xl p-4 md:p-6 shadow-2xl border border-purple-400/50">
