@@ -51,7 +51,7 @@ const AllArticle = () => {
     }, [searchText, selectedPublisher, selectedTags, refetch]);
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-10 text-gray-800 dark:text-gray-100">
+        <div className="max-w-11/12 mx-auto px-4 py-10 text-gray-800 dark:text-gray-100">
             <Helmet>
                 <title> NewsPress | All Articles </title>
             </Helmet>
@@ -138,7 +138,7 @@ const AllArticle = () => {
             </div>
 
             {/* Articles Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {articles.map((article) => {
                     const isLocked = article.isPremium && !isPremium;
 
