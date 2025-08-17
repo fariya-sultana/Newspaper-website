@@ -32,11 +32,11 @@ const DashboardLayout = () => {
                     Admin Dashboard
                 </div>
                 <nav className="p-4">
+                    <NavLink to="charts" className={linkClass}>
+                        <FaChartPie /> Overview
+                    </NavLink>
                     <NavLink to="profile" className={linkClass}>
                         <FaUser /> My Profile
-                    </NavLink>
-                    <NavLink to="charts" className={linkClass}>
-                        <FaChartPie /> Charts
                     </NavLink>
                     <NavLink to="users" className={linkClass}>
                         <FaUsers /> All Users
@@ -72,11 +72,11 @@ const DashboardLayout = () => {
                         </button>
                         <div className="text-xl font-bold mb-4">Admin Dashboard</div>
                         <nav>
+                            <NavLink to="charts" className={linkClass}>
+                                <FaChartPie /> Overview
+                            </NavLink>
                             <NavLink to="profile" className={linkClass}>
                                 <FaUser /> My Profile
-                            </NavLink>
-                            <NavLink to="charts" className={linkClass}>
-                                <FaChartPie /> Charts
                             </NavLink>
                             <NavLink to="users" className={linkClass} onClick={closeSidebar}>
                                 <FaUsers /> All Users
