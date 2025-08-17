@@ -193,7 +193,7 @@ const TrendingSlider = () => {
                                                     {/* Read Button */}
                                                     <div className="mt-4 sm:mt-6 md:mt-8">
                                                         <Link
-                                                            to={`/article/${article._id}`}
+                                                            to={`/articles/${article._id}`}
                                                             className="inline-block bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white px-4  py-2 rounded-lg text-sm sm:text-base font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
                                                         >
                                                             Read Full Story
