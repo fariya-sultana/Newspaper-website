@@ -9,6 +9,7 @@ import FeaturesShowcaseSection from '../components/FeaturesShowcaseSection';
 import FinalCtaSection from '../components/FinalCtaSection';
 import SubscriptionPromptModal from '../components/SubscriptionPromptModal';
 import TestimonialsSection from '../components/TestimonialsSection';
+import SalesPromotionSection from '../components/SalesPromotionSection';
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
@@ -31,6 +32,7 @@ const Home = () => {
       <PublishersSection />
       <StatisticsSection />
       <TestimonialsSection />
+      <SalesPromotionSection />
       <PricingPlansSection />
       <FeaturesShowcaseSection />
       <FinalCtaSection />
