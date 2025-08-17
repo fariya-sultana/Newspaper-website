@@ -8,6 +8,7 @@ import PricingPlansSection from '../components/PricingPlansSection';
 import FeaturesShowcaseSection from '../components/FeaturesShowcaseSection';
 import FinalCtaSection from '../components/FinalCtaSection';
 import SubscriptionPromptModal from '../components/SubscriptionPromptModal';
+import TestimonialsSection from '../components/TestimonialsSection';
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
@@ -29,6 +30,7 @@ const Home = () => {
       <TrendingSlider />
       <PublishersSection />
       <StatisticsSection />
+      <TestimonialsSection />
       <PricingPlansSection />
       <FeaturesShowcaseSection />
       <FinalCtaSection />
